@@ -1,3 +1,5 @@
+![Alt text](TA.PNG)
+
 # TurboAlloc — Enhanced Memory Allocator in C
 
 A reimplementation of `malloc` and `free` in C, built as a learning project. Provides two allocator backends: a linked list and a binary search tree.
