@@ -1,4 +1,4 @@
-![Alt text](TA.PNG)
+<div align="center"> <image src="TA.PNG" alt="Description" width=300> </div>
 
 # TurboAlloc — Enhanced Memory Allocator in C
 
