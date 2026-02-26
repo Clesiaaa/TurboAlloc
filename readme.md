@@ -30,10 +30,8 @@ A reimplementation of `malloc` and `free` in C, built as a learning project. Pro
 │   ├── talloc.h      # t_alloc / t_allocx declarations
 │   └── tfree.h       # t_free / t_freex declarations
 ├── src/
-│   ├── talloc.c      # linked list allocator
-│   ├── tallocx.c     # BST allocator
-│   ├── tfree.c
-│   └── tfreex.c
+│   ├── talloc.c      
+│   └── tfree.c
 └── main.c
 ```
 

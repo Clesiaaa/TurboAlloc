@@ -20,8 +20,8 @@ typedef struct node_t {
 typedef struct ball_t {
     struct ball_t *left;
     uint8_t is_free;
+    struct ball_t *father;
     size_t size;
-    uint8_t balance_factor;
     struct ball_t *right;
 } ball_t;
 

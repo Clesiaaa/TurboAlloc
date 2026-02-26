@@ -12,5 +12,6 @@ ball_t *delete_avl(ball_t *ball, size_t size);
 ball_t *rotate_left(ball_t *ball);
 ball_t *rotate_right(ball_t *ball);
 ball_t *equilibrate(ball_t *ball);
-
+ball_t min_tree(ball_t *ball);
+uint16_t successor(ball_t *ball);
 #endif

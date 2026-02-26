@@ -11,7 +11,6 @@ int8_t balance(ball_t *ball) {
     return height(ball->left) - height(ball->right);
 }
 
-
 ball_t *insert_avl(ball_t *ball, ball_t *a) {
     
     if (ball == NULL) return a;
@@ -28,7 +27,6 @@ ball_t *insert_avl(ball_t *ball, ball_t *a) {
         return equilibrate(ball);    
     }
 };
-
 
 ball_t *equilibrate(ball_t *ball){
     
@@ -70,7 +68,39 @@ ball_t *rotate_right(ball_t *ball) {
     return ball;
 };
 
-
 ball_t *delete_val(ball_t *ball, size_t size) {
-    printf("Not Implemented!\n");
-};
+    if (ball == NULL) return ball;
+    if (size < ball->size) {
+        ball->left = delete_val(ball->left, size);
+    } else if (size > ball->size) {
+        ball->right = delete_val(ball->right, size);   
+    } else {
+        if (ball->left != NULL && ball->right == NULL) {
+            return ball->left;                          
+        } else if (ball->left == NULL && ball->right != NULL) {
+            return ball->right;                        
+        } else if (ball->left == NULL && ball->right == NULL) {
+            return NULL;                               
+        } else {
+            ball_t *succ = successor(ball);
+            ball->size = succ->size;
+            ball->right = delete_val(ball->right, succ->size); 
+        }
+    }
+    return equilibrate(ball);
+}
+ball_t *successor(ball_t *ball) {
+    if (ball->right != NULL) return min_tree(ball->right);
+
+    ball_t *father = ball->father;
+    while (father != NULL && ball == father->right) {
+        ball = father;
+        father = father->father;
+    }
+    return father;
+}
+
+ball_t *min_tree(ball_t *ball) {
+    while (ball->left != NULL) ball = ball->left;
+    return ball;
+}
