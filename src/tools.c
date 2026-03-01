@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include <../include/tools.h>
 
 uint8_t height(ball_t *ball) {
@@ -115,4 +116,15 @@ ball_t create_ball(size_t size) {
     new_ball.is_free = 0;
     new_ball.size = size;
     return new_ball;
+}
+
+ball_t *fill(ball_t *ball, size_t size)
+{
+    if (ball == NULL) return NULL;
+    char *data = (char *)ball + sizeof(ball_t);
+    for (size_t i = 0; i < size; i++)
+        data[i] = 0;
+    ball->left = fill(ball->left, size);
+    ball->right = fill(ball->right, size);
+    return ball;
 }
