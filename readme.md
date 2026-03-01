@@ -10,16 +10,7 @@ A reimplementation of `malloc` and `free` in C, built as a learning project. Pro
 
 - `t_alloc` / `t_free` — linked list allocator "talloc/tfree.h"
 - `t_allocx` / `t_freex` — binary search tree allocator "talloc/tfree.h"
-- `t_allocw` / `t_freew` — AVL/Red Black tree allocator in "turboalloc.h"
-
----
-
-## UpComming Features
-
-- `t_callocK`  — Enhanced callocator in LL, BST and AVLs
-- `t_reallocK`  — Enhanced reallocator in LL, BST and AVLs
-- `t_deallocK`  — Enhanced deallocator in LL, BST and AVLs
----
+- `t_allocw` / `t_freew` / `t_callocw`— AVL/Red Black tree allocator in "turboalloc.h"
 
 ## Build
 
@@ -51,9 +42,11 @@ t_freex(arr2); // bst free
 
 int *arr = t_allocw(10 * sizeof(int));   // AVL allocator
 int *arr2 = t_allocxw(10 * sizeof(int)); //
+int *arr3 = t_allocxw(10, sizeof(int)); //
 
 t_freew(arr); // avl free
 t_freew(arr2);
+t_freew(arr3);
 ```
 
 ---
