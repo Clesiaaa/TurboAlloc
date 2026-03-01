@@ -18,7 +18,7 @@ int main(void)
     uint16_t s = 0x00;
     int *k = (int *)t_callocw(INT_NUMBER, sizeof(int));
     printf("%p\n", k);
-    //for (int y = 0; y < INT_NUMBER - 1; y++) { k[y] = y; s++; }
+    for (int y = 0; y < INT_NUMBER - 1; y++) { k[y] = y; s++; }
     for (int h = 0; h < INT_NUMBER - 1; h++) printf("%d\n", k[h]);
     printf("%d\n", s);
     t_freew(k);
