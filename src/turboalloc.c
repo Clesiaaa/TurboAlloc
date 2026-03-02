@@ -36,26 +36,21 @@ void t_freew(void *ptr) {
 }
 
 void *t_callocw(size_t nb, size_t size)
-{       
-    void *first_ptr = NULL;
-    ball_t *current_ball = start;
+{
+    size_t total = nb * size;
+    ball_t *new_ball = sbrk(total + sizeof(ball_t));
+    if (new_ball == (void *)-1) return NULL;
+    *new_ball = create_ball(total);
 
-    for (uint16_t i = 0x00; i < nb; i++) {
+    // Zero-init
+    char *data = (char *)new_ball + sizeof(ball_t);
+    for (size_t j = 0; j < total; j++)
+        data[j] = 0;
 
-        if (current_ball == NULL) {
-            ball_t *new_ball_root = sbrk(size + sizeof(ball_t));
-            if (new_ball_root == (void *)-1) return NULL;
-            *new_ball_root = create_ball(size);
-            start = new_ball_root;
-            if (first_ptr == NULL) first_ptr = (char *)start + sizeof(ball_t);
-        } else {
-            ball_t *new_ball = sbrk(size + sizeof(ball_t));
-            if (new_ball == (void *)-1) return NULL; 
-            *new_ball = create_ball(size);
-            start = insert_avl(current_ball, new_ball);
-            if (first_ptr == NULL) first_ptr = (char *)new_ball + sizeof(ball_t);
-        }
-    }
-    fill(current_ball, size);
-    return first_ptr;
+    if (start == NULL)
+        start = new_ball;
+    else
+        start = insert_avl(start, new_ball);
+
+    return data;
 }

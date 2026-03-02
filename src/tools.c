@@ -30,25 +30,27 @@ ball_t *insert_avl(ball_t *ball, ball_t *a) {
     return ball;
 };
 
-ball_t *equilibrate(ball_t *ball){
-    
-    if (balance(ball) < 1) {
+ball_t *equilibrate(ball_t *ball) {
+    int8_t b = balance(ball);
+
+    if (b > 1) {
         if (balance(ball->left) >= 0) {
             return rotate_right(ball);
         } else {
-            ball->left = rotate_right(ball->left);
-            return rotate_left(ball);
+            ball->left = rotate_left(ball->left);
+            return rotate_right(ball);
         }
     }
 
-    if (balance(ball) > 1) {
-        if (balance(ball) >= 0) {
+    if (b < -1) {
+        if (balance(ball->right) <= 0) {
             return rotate_left(ball);
         } else {
             ball->right = rotate_right(ball->right);
             return rotate_left(ball);
         }
     }
+
     return ball;
 }
 
@@ -58,6 +60,9 @@ ball_t *rotate_left(ball_t *ball) {
     ball_t *kid_left = ball->left;
     ball->left = temp;
     temp->right = kid_left;
+    ball->father = temp->father;
+    temp->father = ball;
+    if (kid_left) kid_left->father = temp;
     return ball;
 };
 
@@ -118,13 +123,14 @@ ball_t create_ball(size_t size) {
     return new_ball;
 }
 
+/*
 ball_t *fill(ball_t *ball, size_t size)
 {
     if (ball == NULL) return NULL;
     char *data = (char *)ball + sizeof(ball_t);
-    for (size_t i = 0; i < size; i++)
-        data[i] = 0;
+    for (size_t i = 0; i < size; i++) data[i] = 0;
     ball->left = fill(ball->left, size);
     ball->right = fill(ball->right, size);
     return ball;
 }
+*/
